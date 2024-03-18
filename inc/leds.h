@@ -31,6 +31,7 @@ SPDX-License-Identifier: MIT
 /* === Headers files inclusions ===================================== */
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /* === Cabecera C++ ===================================== */
 
@@ -86,6 +87,27 @@ void leds_turn_on(int led);
  * @param led numero de bit correspondiente al led
  */
 void leds_turn_off(int led);
+
+/**
+ * @brief Funcion para consultar estado de LED
+ *
+ * @param led numero de bit correspondiente al led
+ */
+bool leds_get_status(int led);
+
+/**
+ * @brief Funcion para encender todos los LED
+ *
+ *
+ */
+void leds_turn_on_all(void);
+
+/**
+ * @brief Funcion para apagar todos los LED
+ *
+ *
+ */
+void leds_turn_off_all(void);
 
 /* === End of documentation ===================================== */
 

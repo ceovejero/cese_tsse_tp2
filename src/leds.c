@@ -40,30 +40,43 @@ SPDX-License-Identifier: MIT
 
 /* === Private variable definitions ==========================================*/
 
+static uint16_t * puntero;
+
 /* === Private function implementation ====================================== */
 
 static uint16_t led_to_mask(int led) {
     return (BIT_HIGH << (led - LED_OFFSET));
 }
 
-static uint16_t * puntero;
 void leds_init(uint16_t * puerto) {
     puntero = puerto;
     *puntero = ALL_LED_OFF;
 }
 
 void leds_turn_on(int led) {
-
-    //
-    //*puntero = 4;
     *puntero |= led_to_mask(led);
 }
 
 void leds_turn_off(int led) {
-
-    //
-    //*puntero = 0x00;
     *puntero &= ~led_to_mask(led);
+}
+
+bool leds_get_status(int led) {
+    if ((led <= LED_16) && (led >= LED_01)) {
+        if (*puntero & led_to_mask(led))
+            return true;
+        else
+            return false;
+    }
+    return false;
+}
+
+void leds_turn_on_all(void) {
+    *puntero = ALL_LED_ON;
+}
+
+void leds_turn_off_all(void) {
+    *puntero = ALL_LED_OFF;
 }
 
 /* === End of documentation =========================================== */

@@ -51,7 +51,7 @@ void setUp(void) {
 }
 
 /// @brief Test 1
-/// Al iniciar el controlador, los leds deben quedar apagados
+/// Al iniciar el controlador, los leds deben quedar en 0
 /// sin importar el estado anterior.
 void test_todos_los_leds_inician_apagados(void) {
 
@@ -98,3 +98,28 @@ void test_apagar_y_prender_varios_leds(void) {
 
     TEST_ASSERT_EQUAL_UINT16(BIT_HIGH << (LED_07 - LED_OFFSET), leds_virtuales);
 }
+
+/// @brief Test 5
+/// Con todos los leds apagados prender un led y verificar que
+/// al consultar el estado del mismo me informa que esta encendido.
+void test_consultar_estado_de_led(void) {
+    leds_init(&leds_virtuales);
+    leds_turn_on(LED_05);
+    TEST_ASSERT_TRUE(leds_get_status(LED_05));
+}
+
+/// @brief Test 6
+/// Prender todos los leds que estan apagados y
+/// verificar que todos encendidos
+
+/// @brief Test 7
+/// Apagar todos los leds que estan encendidos y
+/// verificar que todos apagados
+
+/// @brief Test 8
+/// Coprobar valores prohibidos
+///
+
+/// @brief Test 9
+/// Coprobar valores de limite
+///

@@ -139,3 +139,21 @@ void test_apagar_y_prender_varios_leds(void) {
    ), (UNITY_UINT)(99), UNITY_DISPLAY_STYLE_UINT16);
 
 }
+
+
+
+
+
+
+
+
+
+void test_consultar_estado_de_led(void) {
+
+    leds_init(&leds_virtuales);
+
+    leds_turn_on(5);
+
+    do {if ((leds_get_status(5))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(108)));}} while(0);
+
+}

@@ -19,12 +19,16 @@
   :line: 91
   :message: ''
   :unity_test_time: 0
+- :test: test_consultar_estado_de_led
+  :line: 105
+  :message: ''
+  :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 4
-  :passed: 4
+  :total: 5
+  :passed: 5
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0014389000007213326
+:time: 0.0015569999995932449
