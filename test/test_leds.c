@@ -1,65 +1,100 @@
-/*
+/************************************************************************************************
+Copyright (c) 2023, Cesar Ovejero <cesarovejero@gmail.com>
 
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-Con todos los leds apagados prender un led y verificar que al consultar
-el estado del mismo me informa que esta prendido. Prender todos los leds que
-estan apagados antes de la operación Apagar todos los leds que ya estan
-prendidos Prender leds que ya esten prendidos de antes Apagar leds que ya esten
-apagados Comprobar valores prohibidos Comprobar los valores de limite
-*/
-#include "leds.h"
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+SPDX-License-Identifier: MIT
+*************************************************************************************************/
+
+/** @file test_leds.c
+ ** @brief Conjunto de Tests para la API de LEDs.
+ **/
+
+/* === Headers files inclusions ===================================== */
+
 #include "unity.h"
+#include "leds.h"
+
+/* === Macros definitions =========================================== */
+
+/* === Private data type declarations ==================================== */
+
+/* === Private variable declarations ====================================== */
 
 static uint16_t leds_virtuales;
-static const int LED = 3;
 
-void setUp(void) { leds_init(&leds_virtuales); }
+/* === Private function declarations ====================================== */
 
-// Al iniciar el controlador los leds deben quedar todos
-// los bits en 0 sin importar el estado anterior.
+/* === Public variable definitions ===========================================*/
 
-void test_todos_los_leds_inician_apagados(void) {
-  // TEST_FAIL_MESSAGE("Arrancamos");
+/* === Private variable definitions ==========================================*/
 
-  uint16_t leds_virtuales = 0xFF;
-  leds_init(&leds_virtuales);
-  TEST_ASSERT_EQUAL_UINT16(0x00, leds_virtuales);
+/* === Private function implementation ====================================== */
+
+void setUp(void) {
+    leds_init(&leds_virtuales);
 }
 
-// Con todos los leds apagados prender el led 3 y verificar que
-// efectivamente elbit 2 se pone en 1 y el resto de bit permanece en 0.
+/// @brief Test 1
+/// Al iniciar el controlador, los leds deben quedar apagados
+/// sin importar el estado anterior.
+void test_todos_los_leds_inician_apagados(void) {
 
+    // TEST_FAIL_MESSAGE("Arrancamos");
+
+    leds_virtuales = ALL_LED_ON;
+    leds_init(&leds_virtuales);
+    TEST_ASSERT_EQUAL_UINT16(ALL_LED_OFF, leds_virtuales);
+}
+
+/// @brief Test 2
+/// Con todos los leds apagados prender el led 3 y verificar que
+/// el bit 2 se pone en 1 y el resto de bit permanece en 0.
 void test_prender_un_led(void) {
 
-  // leds_init(&leds_virtuales);
-  leds_turn_on(LED);
-  // El bit 2 está en alto
-  TEST_ASSERT_BIT_HIGH(LED - 1, leds_virtuales);
-  // Todos los otros bits estan en bajo
-  TEST_ASSERT_BITS_LOW(~(1 << (LED - 1)), leds_virtuales);
+    leds_turn_on(LED_03);
+    // El bit 2 está en alto
+    TEST_ASSERT_BIT_HIGH(LED_03 - 1, leds_virtuales);
+    // Todos los otros bits estan en bajo
+    TEST_ASSERT_BITS_LOW(~(BIT_HIGH << (LED_03 - LED_OFFSET)), leds_virtuales);
 }
 
-// Apagar un led prendido y ver que efectivamente se apaga y que el resto no
-// cambia.
+/// @brief Test 3
+/// Apagar un led prendido y ver que efectivamente se apaga
+/// y que el resto no cambia.
 void test_apagar_un_led(void) {
 
-  leds_init(&leds_virtuales);
-  leds_turn_on(LED);
-
-  leds_turn_off(LED);
-
-  TEST_ASSERT_EQUAL_UINT16(0x00, leds_virtuales);
+    leds_init(&leds_virtuales);
+    leds_turn_on(LED_03);
+    leds_turn_off(LED_03);
+    TEST_ASSERT_EQUAL_UINT16(ALL_LED_OFF, leds_virtuales);
 }
 
-// Apagar un led prendido y ver que efectivamente se apaga y que el resto no
-// cambia.
+/// @brief Test 4
+/// Encender 2 Leds y Apagar 1 -
+/// Verificar que solo quede uno encendido.
 void test_apagar_y_prender_varios_leds(void) {
 
-  leds_turn_on(5);
-  leds_turn_on(7);
-  leds_turn_on(5);
-  leds_turn_off(5);
-  leds_turn_off(9);
+    leds_turn_on(LED_05);
+    leds_turn_on(LED_07);
+    leds_turn_on(LED_05);
+    leds_turn_off(LED_05);
+    leds_turn_off(LED_09);
 
-  TEST_ASSERT_EQUAL_UINT16(1 << (7 - 1), leds_virtuales);
+    TEST_ASSERT_EQUAL_UINT16(BIT_HIGH << (LED_07 - LED_OFFSET), leds_virtuales);
 }
