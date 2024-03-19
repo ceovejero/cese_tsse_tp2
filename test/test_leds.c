@@ -111,10 +111,18 @@ void test_consultar_estado_de_led(void) {
 /// @brief Test 6
 /// Prender todos los leds que estan apagados y
 /// verificar que todos encendidos
+void test_encender_todos_y_verificar_todos_encendidos(void) {
+
+    leds_turn_on_all(), TEST_ASSERT_EQUAL_UINT16(ALL_LED_ON, leds_virtuales);
+}
 
 /// @brief Test 7
 /// Apagar todos los leds que estan encendidos y
 /// verificar que todos apagados
+void test_apagar_todos_y_verificar_todos_apagados(void) {
+
+    leds_turn_off_all(), TEST_ASSERT_EQUAL_UINT16(ALL_LED_OFF, leds_virtuales);
+}
 
 /// @brief Test 8
 /// Coprobar valores prohibidos
