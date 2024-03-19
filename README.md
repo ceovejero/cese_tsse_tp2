@@ -39,4 +39,8 @@ Para compilar el codigo y ejecutar los test:
 ceedling
 ```
 
+Para generar la documentación del proyecto se utiliza el siguiente comando:
 
+```
+make doc
+```
