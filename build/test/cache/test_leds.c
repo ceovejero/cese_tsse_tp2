@@ -154,6 +154,6 @@ void test_consultar_estado_de_led(void) {
 
     leds_turn_on(5);
 
-    do {if ((leds_get_status(5))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(108)));}} while(0);
+    do {if ((leds_get_status(6))) {} else {UnityFail( ((" Expected TRUE Was FALSE")), (UNITY_UINT)((UNITY_UINT)(108)));}} while(0);
 
 }

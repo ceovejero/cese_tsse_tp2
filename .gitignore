@@ -47,7 +47,7 @@
 *.pdb
 
 # Buid files
-build/*
+build/
 
 # Kernel Module Compile Results
 *.mod*
