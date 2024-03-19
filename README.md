@@ -15,12 +15,11 @@ Se aplican al desarrollo de una API para controlar LEDs con los siguientes reque
 * El led 1 corresponde al LSB y el led 16 al MSB.
 * El reset de hardware no define un estado conocido de los led’s, estos deben ser apagados por software.
 
-
-Este repositorio utiliza [pre-commit] (http://pre-commit.com/) para validaciones de formato y [ceedling] (https://www.throwtheswitch.org/ceedling) para la comprobacion de los test.
+Este repositorio utiliza [pre-commit](https://pre-comit.com) para validaciones de formato y [ceedling](https://www.throwtheswitch.org/ceedling) para la comprobacion de los test.
 
 Para trabajar con el mismo considere:
 
-1. instalar [Pre-commit] (http://pre-commit.com/#install)
+1. instalar [Pre-commit](http://pre-commit.com/#install)
 2. instalar `ceedling`:
 
 ```
